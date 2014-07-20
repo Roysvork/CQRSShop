@@ -3,6 +3,8 @@ CQRSShop
 
 This is a fork of the Simple CQRS and eventsourcing with eventstore and elasticsearch [by mastoj](https://github.com/mastoj/CQRSShop)
 
+Feel free to use issues or open pull requests as a means of discussion
+
 ### Philosophy
 
 The functionality of this solution is identical to the parent and all tests pass, but it reflects my personal opinions on best practices for implementing DDDesigns in C#
