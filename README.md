@@ -14,15 +14,13 @@ The introduction of a project representing the Application Layer is the key diff
 This extra granularity **allows for Entities to be scoped more restrictively than Aggregate Roots**... the former can now be made inaccessible to command handlers which was not possible in the parent sample. It is for this reason that the project structure used in this sample is important and should be preferred over mixing handlers and aggregate roots in the same project.
 
 
-### Use of static class to Raise Events
+### Use of static class facade to Raise Events
 
-This is perhaps the most contraversial aspect of this implementation. When implementing DDDesigns in an object oriented language such as C# there are always tradeoffs to be made. In implementing this sample careful analysis of different approaches to raising events from the domain layer was made and discussed at length.
+This is perhaps the most contraversial aspect of this implementation. It is important to note that the static class is **simply a facade** for an Action&lt;object&gt; that allows us to avoid taking a dependency in our domain. While this is a grand debate that I will not enter into here, I will at least summarise the thinking behind choosing this approach.
 
 Thinking outside the current constraints of the C#... the ideal scenario would be if raising events was supported natively, i.e provided as a first class language construct. This would allow us to implement our decision making code without polluting it by tracking code or having to return events from aggregate roots.
 
 Given that this is not possible at present... it was decided that use of a static class facade over an event dispatcher scoped to logical call context so as to be thread safe was the next best thing - or in other words - the least worst option.
-
-
 ### Key Differences
 
 * F# Contracts have been converted to C# in the CQRSShop.Types project and have been joined by some exceptions.
