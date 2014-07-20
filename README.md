@@ -9,7 +9,7 @@ The functionality of this project is identical to the parent and all tests pass,
 
 Most of the changes center around the belief that project structure should reflect the conceptual layers of your application, and most significantly that the Domain project should not entertain any concerns that are not to do with business decision making, for example command handlers.
 
-The introduction of a project representing the Application Layer is the key difference. All command handlers reside here, and **this project is the ONLY one in the solution allowed to reference the domain**. From this perspective - even though methods on aggregate roots may be public - **integrity of the domain is assured**.
+The introduction of a project representing the Application Layer is the key difference. All command handlers reside here, and **this project is the ONLY one in the solution allowed to reference the domain**. From this perspective - even though methods on aggregate roots may be public - integrity of the domain is assured.
 
 This extra granularity **allows for Entities to be scoped more restrictively than Aggregate Roots**... the former can now be made inaccessible to command handlers which was not possible in the parent sample. It is for this reason that the project structure used in this sample is important and should be preferred over mixing handlers and aggregate roots in the same project.
 
