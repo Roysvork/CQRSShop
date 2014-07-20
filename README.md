@@ -14,7 +14,7 @@ The introduction of a project representing the Application Layer is the key diff
 This extra granularity **allows for Entities to be scoped more restrictively than Aggregate Roots**... the former can now be made inaccessible to command handlers which was not possible in the parent sample. It is for this reason that the project structure used in this sample is important and should be preferred over mixing handlers and aggregate roots in the same project.
 
 
-### Use of static class facade to Raise Events
+### Use of static class facade to raise events
 
 This is perhaps the most contraversial aspect of this implementation. It is important to note that the static class is **simply a facade** for an Action&lt;object&gt; that allows us to avoid taking a dependency in our domain. While this is a grand debate that I will not enter into here, I will at least summarise the thinking behind choosing this approach.
 
@@ -23,7 +23,7 @@ If we approach the problem theoretically and from outside the current constraint
 Given that this is not possible at present... it was decided that use of a static class facade over an event dispatcher scoped to logical call context so as to be thread safe was the next best thing. I consider this to be the least worst option as it allows us to keep our Aggregate roots clean and free of non-decision making concerns.
 
 
-### Key Differences from the parent sample
+### Key differences from the parent sample
 
 * F# Contracts have been converted to C# in the CQRSShop.Types project and have been joined by some exceptions.
 * Domain project now only depends on Types and nothing else
