@@ -5,7 +5,7 @@ This is a fork of the Simple CQRS and eventsourcing with eventstore and elastics
 
 ### Philosophy
 
-The functionality of this project is identical to the parent and all tests pass, but it reflects my personal opinions on implementing DDDesigns in C#
+The functionality of this project is identical to the parent and all tests pass, but it reflects my personal opinions on best practices for implementing DDDesigns in C#
 
 Most of the changes center around the belief that project structure should reflect the conceptual layers of your application, and most significantly that the Domain project should not entertain any concerns that are not to do with business decision making, for example command handlers.
 
