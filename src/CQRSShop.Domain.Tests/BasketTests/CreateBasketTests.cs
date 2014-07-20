@@ -1,13 +1,15 @@
 ﻿using System;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Domain.Exceptions;
+using CQRSShop.Types;
 using CQRSShop.Infrastructure.Exceptions;
-using CQRSShop.Tests;
+
 using NUnit.Framework;
 
 namespace CQRSShop.Domain.Tests.BasketTests
 {
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+    using CQRSShop.Types.Exceptions;
+
     [TestFixture]
     public class CreateBasketTests : TestBase
     {
@@ -28,7 +30,7 @@ namespace CQRSShop.Domain.Tests.BasketTests
         {
             var id = Guid.NewGuid();
             var customerId = Guid.NewGuid();
-            WhenThrows<AggregateNotFoundException>(new CreateBasket(id, customerId));
+            WhenThrows<EntityNotFoundException>(new CreateBasket(id, customerId));
         }
 
         [Test]

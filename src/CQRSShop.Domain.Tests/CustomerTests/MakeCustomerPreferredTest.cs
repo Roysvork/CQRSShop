@@ -1,11 +1,13 @@
 using System;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Tests;
+using CQRSShop.Types;
+
 using NUnit.Framework;
 
 namespace CQRSShop.Domain.Tests.CustomerTests
 {
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+
     [TestFixture]
     public class MarkCustomerAsPreferredTest : TestBase
     {

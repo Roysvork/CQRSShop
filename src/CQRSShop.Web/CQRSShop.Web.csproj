@@ -56,6 +56,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -64,6 +67,9 @@
     </Reference>
     <Reference Include="Simple.Web.JsonNet">
       <HintPath>..\packages\Simple.Web.JsonNet.0.12.1-pre\lib\net40\Simple.Web.JsonNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Web.Ninject">
+      <HintPath>..\packages\Simple.Web.Ninject.0.12.1-pre\lib\net40\Simple.Web.Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
@@ -111,21 +117,23 @@
     <Compile Include="Api\Order\StartShipping\PostEndpoint.cs" />
     <Compile Include="Api\Product\PostEndpoint.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="DependencySetup.cs" />
     <Compile Include="OwinAppSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CQRS.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSShop.Contracts\CQRSShop.Contracts.fsproj">
-      <Project>{66f74977-c96f-4af0-9f98-d2ca94749649}</Project>
-      <Name>CQRSShop.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CQRSShop.Domain\CQRSShop.Domain.csproj">
-      <Project>{00afe5da-93ef-4c5a-be98-006ecf0e42e6}</Project>
-      <Name>CQRSShop.Domain</Name>
+    <ProjectReference Include="..\CQRSShop.Application\CQRSShop.Application.csproj">
+      <Project>{C74087AE-8025-4B07-A042-C508141CE531}</Project>
+      <Name>CQRSShop.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\CQRSShop.Infrastructure\CQRSShop.Infrastructure.csproj">
       <Project>{57ae018a-ba49-471d-97d7-c4ad2040d4b0}</Project>
       <Name>CQRSShop.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CQRSShop.Types\CQRSShop.Types.csproj">
+      <Project>{C714F231-ED63-4D1F-B0D8-6396BD103264}</Project>
+      <Name>CQRSShop.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -30,7 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FSharp.Core, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,27 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregates\Customer.cs" />
-    <Compile Include="Aggregates\Order.cs" />
-    <Compile Include="Aggregates\Product.cs" />
-    <Compile Include="Aggregates\Basket.cs" />
-    <Compile Include="CommandHandlers\BasketCommandHandler.cs" />
-    <Compile Include="CommandHandlers\CustomerCommandHandler.cs" />
-    <Compile Include="CommandHandlers\ProductCommandHandler.cs" />
-    <Compile Include="DomainEntry.cs" />
-    <Compile Include="Exceptions\CustomerAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\DuplicateAggregateException.cs" />
-    <Compile Include="CommandHandlers\OrderHandler.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="IdGenerator.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="Basket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CQRSShop.Contracts\CQRSShop.Contracts.fsproj">
-      <Project>{66f74977-c96f-4af0-9f98-d2ca94749649}</Project>
-      <Name>CQRSShop.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CQRSShop.Infrastructure\CQRSShop.Infrastructure.csproj">
-      <Project>{57ae018a-ba49-471d-97d7-c4ad2040d4b0}</Project>
-      <Name>CQRSShop.Infrastructure</Name>
+    <ProjectReference Include="..\CQRSShop.Types\CQRSShop.Types.csproj">
+      <Project>{C714F231-ED63-4D1F-B0D8-6396BD103264}</Project>
+      <Name>CQRSShop.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,16 +1,15 @@
 ﻿using System;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Contracts.Types;
-using CQRSShop.Domain.Exceptions;
-using CQRSShop.Infrastructure;
-using CQRSShop.Tests;
-using Microsoft.FSharp.Collections;
-using CQRSShop.Contracts;
+using CQRSShop.Types;
 using NUnit.Framework;
 
 namespace CQRSShop.Domain.Tests.OrderTests
 {
+    using System.Collections.Generic;
+
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+    using CQRSShop.Types.Exceptions;
+
     [TestFixture]
     public class AllTheOrderTests : TestBase
     {
@@ -58,6 +57,7 @@ namespace CQRSShop.Domain.Tests.OrderTests
         public void WhenShippingAnOrderThatTheShippingProcessIsStarted_ItShouldBeMarkedAsShipped()
         {
             var id = Guid.NewGuid();
+
             var orderCreated = BuildOrderCreated(id, basketId: Guid.NewGuid(), numberOfOrderLines: 1);
             Given(orderCreated,
                 new ShippingProcessStarted(id));
@@ -86,7 +86,7 @@ namespace CQRSShop.Domain.Tests.OrderTests
                 new ItemAdded(basketId, orderLine),
                 new BasketCheckedOut(basketId, address));
             When(new MakePayment(basketId, 100001));
-            Then(new OrderCreated(orderId, basketId, Helpers.ToFSharpList(new [] {orderLine})),
+            Then(new OrderCreated(orderId, basketId, new List<OrderLine> {orderLine}),
                 new NeedsApproval(orderId));
         }
 
@@ -102,7 +102,7 @@ namespace CQRSShop.Domain.Tests.OrderTests
                 new ItemAdded(basketId, orderLine),
                 new BasketCheckedOut(basketId, address));
             When(new MakePayment(basketId, 100000));
-            Then(new OrderCreated(orderId, basketId, Helpers.ToFSharpList(new[] { orderLine })),
+            Then(new OrderCreated(orderId, basketId, new List<OrderLine> { orderLine }),
                 new OrderApproved(orderId));
         }
 
@@ -110,17 +110,17 @@ namespace CQRSShop.Domain.Tests.OrderTests
         public void WhenApprovingAnOrder_ItShouldBeApproved()
         {
             var orderId = Guid.NewGuid();
-            Given(new OrderCreated(orderId, Guid.NewGuid(), FSharpList<OrderLine>.Empty));
+            Given(new OrderCreated(orderId, Guid.NewGuid(), new List<OrderLine>()));
             When(new ApproveOrder(orderId));
             Then(new OrderApproved(orderId));
         }
 
         private OrderCreated BuildOrderCreated(Guid orderId, Guid basketId, int numberOfOrderLines, int pricePerProduct = 100)
         {
-            var orderLines = FSharpList<OrderLine>.Empty;
+            var orderLines = new List<OrderLine>();
             for (var i = 0; i < numberOfOrderLines; i++)
             {
-                orderLines = FSharpList<OrderLine>.Cons(new OrderLine(Guid.NewGuid(), "Line " + i, pricePerProduct, pricePerProduct, 1), orderLines);
+                orderLines.Add(new OrderLine(Guid.NewGuid(), "Line " + i, pricePerProduct, pricePerProduct, 1));
             }
             return new OrderCreated(orderId, basketId, orderLines);
         }

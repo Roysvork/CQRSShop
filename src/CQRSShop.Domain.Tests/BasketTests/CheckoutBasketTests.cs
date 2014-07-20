@@ -1,13 +1,14 @@
 using System;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Contracts.Types;
-using CQRSShop.Domain.Exceptions;
-using CQRSShop.Tests;
+using CQRSShop.Types;
+
 using NUnit.Framework;
 
 namespace CQRSShop.Domain.Tests.BasketTests
 {
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+    using CQRSShop.Types.Exceptions;
+
     [TestFixture]
     public class CheckoutBasketTests : TestBase
     {

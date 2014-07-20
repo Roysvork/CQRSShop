@@ -1,41 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CQRSShop.Domain;
-using CQRSShop.Infrastructure;
-using NUnit.Framework;
-
-namespace CQRSShop.Tests
+﻿namespace CQRSShop.Domain.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using CQRSShop.Application;
+    using CQRSShop.Infrastructure;
+
+    using NUnit.Framework;
+
     public class TestBase
     {
-        private InMemoryDomainRespository _domainRepository;
-        private DomainEntry _domainEntry;
-        private Dictionary<Guid, IEnumerable<IEvent>> _preConditions = new Dictionary<Guid, IEnumerable<IEvent>>();
+        private readonly ICommandDispatcher commandDispatcher;
 
-        private DomainEntry BuildApplication()
+        private readonly IEventBus eventBus;
+
+        public TestBase()
         {
-            _domainRepository = new InMemoryDomainRespository();
-            _domainRepository.AddEvents(_preConditions);
-            return new DomainEntry(_domainRepository);
+            var engine = new Shop();
+
+            this.commandDispatcher = engine.CommandDispatcher;
+            this.eventBus = engine.EventBus;
         }
 
         [TestFixtureTearDown]
         public void TearDown()
         {
             IdGenerator.GenerateGuid = null;
-            _preConditions = new Dictionary<Guid, IEnumerable<IEvent>>();
         }
 
-        protected void When(ICommand command)
+        protected void When(object command)
         {
-            var application = BuildApplication();
-            application.ExecuteCommand(command);
+            this.commandDispatcher.Dispatch(command);
         }
 
-        protected void Then(params IEvent[] expectedEvents)
+        protected void Then(params object[] expectedEvents)
         {
-            var latestEvents = _domainRepository.GetLatestEvents().ToList();
+            var latestEvents = this.eventBus.GetAllUncommitted().ToList();
+            this.eventBus.CommitAll();
+
             var expectedEventsList = expectedEvents.ToList();
             Assert.AreEqual(expectedEventsList.Count, latestEvents.Count);
 
@@ -45,11 +48,11 @@ namespace CQRSShop.Tests
             }
         }
 
-        protected void WhenThrows<TException>(ICommand command) where TException : Exception
+        protected void WhenThrows<TException>(object command) where TException : Exception
         {
             try
             {
-                When(command);
+                this.When(command);
                 Assert.Fail("Expected exception " + typeof(TException));
             }
             catch (TException)
@@ -57,11 +60,14 @@ namespace CQRSShop.Tests
             }
         }
 
-        protected void Given(params IEvent[] existingEvents)
+        protected void Given(params object[] existingEvents)
         {
-            _preConditions = existingEvents
-                .GroupBy(y => y.Id)
-                .ToDictionary(y => y.Key, y => y.AsEnumerable());
+            foreach (var @event in existingEvents)
+            {
+                this.eventBus.Raise(@event);
+            }
+            
+            this.eventBus.CommitAll();
         }
     }
 }

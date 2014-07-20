@@ -1,16 +1,16 @@
 using System;
-using CQRSShop.Contracts;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Contracts.Types;
-using CQRSShop.Domain.Exceptions;
-using CQRSShop.Infrastructure;
-using CQRSShop.Tests;
-using Microsoft.FSharp.Collections;
+
 using NUnit.Framework;
 
 namespace CQRSShop.Domain.Tests.BasketTests
 {
+    using System.Collections.Generic;
+
+    using CQRSShop.Types;
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+    using CQRSShop.Types.Exceptions;
+
     [TestFixture]
     public class MakePaymentTests : TestBase
     {
@@ -40,7 +40,7 @@ namespace CQRSShop.Domain.Tests.BasketTests
                 new ItemAdded(id, existingOrderLine));
             When(new MakePayment(id, payment));
 
-            var items = Helpers.ToFSharpList(new[] {existingOrderLine});
+            var items = new List<OrderLine> { existingOrderLine };
             Then(new OrderCreated(orderId, id, items),
                 new OrderApproved(orderId));
         }

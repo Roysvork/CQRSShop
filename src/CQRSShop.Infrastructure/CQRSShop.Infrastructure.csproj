@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EventStore.ClientAPI">
-      <HintPath>..\packages\EventStore.Client.3.0.0-rc2\lib\net40\EventStore.ClientAPI.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -48,18 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregateBase.cs" />
-    <Compile Include="Exceptions\AggregateNotFoundException.cs" />
-    <Compile Include="CommandDispatcher.cs" />
-    <Compile Include="DomainRepositoryBase.cs" />
-    <Compile Include="EventStoreDomainRepository.cs" />
-    <Compile Include="IAggregate.cs" />
-    <Compile Include="IdGenerator.cs" />
-    <Compile Include="IDomainRepository.cs" />
-    <Compile Include="IEvent.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="IHandle.cs" />
-    <Compile Include="InMemoryDomainRespository.cs" />
+    <Compile Include="EntityMapping.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ICommandDispatcher.cs" />
+    <Compile Include="IEventBus.cs" />
+    <Compile Include="InMemoryCommandDispatcher.cs" />
+    <Compile Include="InMemoryEventBus.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

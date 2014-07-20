@@ -1,21 +1,22 @@
-﻿using System;
-using CQRSShop.Domain;
-using CQRSShop.Infrastructure;
-using Simple.Web;
-using Simple.Web.Behaviors;
-
-namespace CQRSShop.Web.Api
+﻿namespace CQRSShop.Web.Api
 {
-    public abstract class BasePostEndpoint<TCommand> : IPost, IInput<TCommand> where TCommand : ICommand
+    using System;
+
+    using CQRSShop.Application;
+    using CQRSShop.Infrastructure;
+
+    using Simple.Web;
+    using Simple.Web.Behaviors;
+
+    public abstract class BasePostEndpoint<TCommand> : IPost, IInput<TCommand>
     {
+        public TCommand Input { private get; set; }
+
         public Status Post()
         {
             try
             {
-                var connection = Configuration.CreateConnection();
-                var domainRepository = new EventStoreDomainRepository(connection);
-                var application = new DomainEntry(domainRepository);
-                application.ExecuteCommand(Input);
+                CQRS.Shop.CommandDispatcher.Dispatch(this.Input);
             }
             catch (Exception)
             {
@@ -24,7 +25,5 @@ namespace CQRSShop.Web.Api
 
             return Status.OK;
         }
-
-        public TCommand Input { set; private get; }
     }
 }

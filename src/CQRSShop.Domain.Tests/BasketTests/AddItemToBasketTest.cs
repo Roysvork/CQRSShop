@@ -1,12 +1,13 @@
-﻿using System;
-using CQRSShop.Contracts.Commands;
-using CQRSShop.Contracts.Events;
-using CQRSShop.Contracts.Types;
-using CQRSShop.Tests;
-using NUnit.Framework;
-
-namespace CQRSShop.Domain.Tests.BasketTests
+﻿namespace CQRSShop.Domain.Tests.BasketTests
 {
+    using System;
+
+    using CQRSShop.Types;
+    using CQRSShop.Types.Commands;
+    using CQRSShop.Types.Events;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class AddItemToBasketTest : TestBase
     {
