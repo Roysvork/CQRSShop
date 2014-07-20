@@ -2,12 +2,11 @@ namespace CQRSShop.Domain
 {
     using System;
 
-    using CQRSShop.Types;
     using CQRSShop.Types.Events;
 
     public class Product
     {
-        public Product(Guid id, string name, int price)
+        private Product(Guid id, string name, int price)
         {
             Event.Raise(new ProductCreated(id, name, price));
         }

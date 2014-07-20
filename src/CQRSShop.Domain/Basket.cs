@@ -14,7 +14,7 @@ namespace CQRSShop.Domain
 
         private List<OrderLine> orderLines;
 
-        public Basket(Guid id, Guid customerId, int discount)
+        private Basket(Guid id, Guid customerId, int discount)
         {  
             Event.Raise(new BasketCreated(id, customerId, discount));
         }

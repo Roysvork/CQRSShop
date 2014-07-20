@@ -2,7 +2,6 @@ namespace CQRSShop.Domain
 {
     using System;
 
-    using CQRSShop.Types;
     using CQRSShop.Types.Events;
 
     public class Customer
