@@ -18,10 +18,12 @@ This extra granularity **allows for Entities to be scoped more restrictively tha
 
 This is perhaps the most contraversial aspect of this implementation. It is important to note that the static class is **simply a facade** for an Action&lt;object&gt; that allows us to avoid taking a dependency in our domain. While this is a grand debate that I will not enter into here, I will at least summarise the thinking behind choosing this approach.
 
-Thinking outside the current constraints of the C#... the ideal scenario would be if raising events was supported natively, i.e provided as a first class language construct. This would allow us to implement our decision making code without polluting it by tracking code or having to return events from aggregate roots.
+If we approach the problem theoretically and from outside the current constraints of the C# language... the ideal scenario would be if we had the ability to raise events natively in code, i.e via a first class language construct such as what we use for exceptions. This would allow us to implement our decision making code without polluting it by tracking code or having to return events from aggregate roots.
 
-Given that this is not possible at present... it was decided that use of a static class facade over an event dispatcher scoped to logical call context so as to be thread safe was the next best thing - or in other words - the least worst option.
-### Key Differences
+Given that this is not possible at present... it was decided that use of a static class facade over an event dispatcher scoped to logical call context so as to be thread safe was the next best thing. I consider this to be the least worst option as it allows us to keep our Aggregate roots clean and free of non-decision making concerns.
+
+
+### Key Differences from the parent sample
 
 * F# Contracts have been converted to C# in the CQRSShop.Types project and have been joined by some exceptions.
 * Domain project now only depends on Types and nothing else
