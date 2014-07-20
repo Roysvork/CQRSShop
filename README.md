@@ -5,7 +5,7 @@ This is a fork of the Simple CQRS and eventsourcing with eventstore and elastics
 
 ### Philosophy
 
-The functionality of this project is identical to the parent and all tests pass, but it reflects my personal opinions on best practices for implementing DDDesigns in C#
+The functionality of this solution is identical to the parent and all tests pass, but it reflects my personal opinions on best practices for implementing DDDesigns in C#
 
 Most of the changes center around the belief that project structure should reflect the conceptual layers of your application, and most significantly that the Domain project should not entertain any concerns that are not to do with business decision making, for example command handlers.
 
@@ -28,16 +28,16 @@ Given that this is not possible at present... it was decided that use of a stati
 * F# Contracts have been converted to C# in the CQRSShop.Types project and have been joined by some exceptions.
 * Domain project now only depends on Types and nothing else
 * Infrastructure project now only deals with technical/persistence concerns
-* New project CQRS.Application to represent the Application Layer.
+* New project CQRSShop.Application to represent the Application Layer.
 * Aggregate roots are now public (but referenced ONLY by application project), all entities are internal.
 * Domain project is no longer responsible for wireup of apply functions on aggregate roots to matching events (referred to as transitions in the parent sample) - This is done in CQRSShop.Application
-* DomainEntry class has been replaced with Shop.cs and resides in CQRS.Application
+* DomainEntry class has been replaced with Shop.cs and resides in CQRSShop.Application
 * Command Handlers no longer reside in the same project as the domain, they can be found in CQRSShop.Application
 * Events and Commands no longer implement interfaces - knowlege of Id properties is now wired up in the CQRSShop.Application project
 * Aggregate roots no longer track their own uncommitted events and no longer require base classes
 * Some methods in aggregate roots and command handlers have been simplified and no longer return anything
 * Event storage concerns have been seperated from the domain repository implementation - now in IEventBus
-* DomainRepository implementation has been simplified, renamed to Repository and moved to CQRS.Application
+* DomainRepository implementation has been simplified, renamed to Repository and moved to CQRSShop.Infrastructure
 
 ### Caveats
 
